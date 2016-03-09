@@ -1,0 +1,31 @@
+http://storm.apache.org/documentation/Concepts.html
+http://storm.apache.org/tutorial.html
+
+
+Starting a Basic Storm Cluster
+=============================
+
+1) Download Apache Storm, Unzip it into a local dir (let's call it "storm")
+2) Download Apache Zookeeper, Unzip it into a local dir (let's call it "zookeeper")
+3) Copy zookeeper/conf/zoo_sample.cfg to zookeeper/conf/zoo.cfg
+4) Run zookeeper/bin/zkServer.sh start
+5) Edit storm/conf/storm.yaml and set:
+    storm.zookeeper.servers:
+     - "localhost"
+
+    nimbus.host: "localhost"
+
+    storm.local.dir: "/tmp/storm"
+
+    supervisor.slots.ports:
+        - 6700
+        - 6701
+
+6) Run storm/bin/storm nimbus
+7) Run storm/bin/storm supervisor
+8) Run storm/bin/storm ui
+9) Open http://localhost:8080 in a browser
+
+Now the cluster is ready. Let's run an example:
+storm/bin/storm jar storm/examples/storm-starter/storm-starter-topologies-0.10.0.jar storm.starter.ExclamationTopology exampleTopology1
+
